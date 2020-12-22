@@ -83,7 +83,7 @@ export default class TodoList extends Component {
                                 <Text style={styles.listItem}>
                                     {item.text}
                                 </Text>
-                                <Button title="X" onPress={() => this.deleteTask(index)} />
+                                <Button title="X" style={styles.button} onPress={() => this.deleteTask(index)} />
                             </View>
                             <View style={styles.hr} />
                         </View>}
@@ -102,6 +102,9 @@ export default class TodoList extends Component {
     }
 }
 
+/**
+ * Change Async storage to SQL queries
+ */
 let Tasks = {
     convertToArrayOfObject(tasks, callback) {
         return callback(
@@ -136,6 +139,7 @@ const styles = StyleSheet.create({
     listItem: {
         paddingTop: 2,
         paddingBottom: 2,
+        width: '90%',
         fontSize: 18
     },
     hr: {
@@ -154,5 +158,8 @@ const styles = StyleSheet.create({
         borderColor: "gray",
         borderWidth: isAndroid ? 0 : 1,
         width: "100%"
+    },
+    button: {
+        flex: 1,
     }
 });
