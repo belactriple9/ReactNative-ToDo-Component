@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 
 import ToDoHome from './toDoList/toDoHome.js';
 
-
+import ToDoFooter from "../components/ToDoFooter";
+import ToDoHeadder from "../components/ToDoHeadder";
 import Background from "../components/background";
 import Container from "../components/container";
 
@@ -15,9 +16,11 @@ const ToDoList = (props) => {
 
     return (
         <Background>
+            <ToDoHeadder />
             <Container style={styles.pageContainer}>
                 <ToDoHome />
             </Container>
+            <ToDoFooter style={styles.footerContainer} />
         </Background>
     );
 
@@ -32,20 +35,15 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         alignSelf: "center",
         width: "100%",
-        height: "98%",
-        paddingTop: "6%",
+        height: "75%",
+        top: "17%",
     },
+    footerContainer: {
+        flex: 1,
+    }
 });
 
-/**
- * 
-    flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#F5FCFF",
-        padding: viewPadding,
-        paddingTop: 20
- */
+
 
 export default ToDoList;
 

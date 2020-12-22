@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
 
 import Colors from "../constants/colors";
 
+
 const InspectionHeader = (props) => {
 
+    const navigateToApiaries = () => {
+        alert("Navigation")
+    }
+
     return <View style={styles.pageHeader}>
-        <TouchableOpacity>
-            <View style={styles.discardButton}>
-                <Text style = {styles.btnText}>Discard</Text>
-            </View>
+        <TouchableOpacity style={styles.discardButton} onPress={navigateToApiaries}>
+            <Text style={styles.btnText}>Back</Text>
         </TouchableOpacity>
-        <Text style={styles.pageTitle}>Inspection</Text>
+        <Text style={styles.pageTitle}>To Do List</Text>
     </View>
 
 };
 
 const styles = StyleSheet.create({
     pageHeader: {
-        marginTop: 50,
+        marginTop: 20,
         flexDirection: "row",
         maxWidth: 500,
         width: "100%",
@@ -26,6 +29,8 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     pageTitle: {
+        flex: 1,
+        flexWrap: "wrap",
         color: Colors.lightBlack,
         marginLeft: "7%",
         fontSize: 32,
@@ -42,18 +47,18 @@ const styles = StyleSheet.create({
         alignContent: "center",
         alignItems: "center",
         shadowColor: "black",
-        shadowOffset: {width:0, height: 2},
+        shadowOffset: { width: 0, height: 2 },
         shadowRadius: 6,
         shadowOpacity: 0.26,
         elevation: 8,
         color: Colors.iOSWhite,
     },
     btnText: {
-      color: Colors.iOSWhite,
-      fontWeight: 'bold',
-      fontSize: 20,
-      textShadowColor: "black",
-      textShadowRadius: 10,
+        color: Colors.iOSWhite,
+        fontWeight: 'bold',
+        fontSize: 20,
+        textShadowColor: "black",
+        textShadowRadius: 10,
     }
 });
 
