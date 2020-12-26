@@ -6,12 +6,8 @@ import Colors from "../constants/colors";
 
 const InspectionHeader = (props) => {
 
-    const navigateToApiaries = () => {
-        alert("Navigation")
-    }
-
     return <View style={styles.pageHeader}>
-        <TouchableOpacity style={styles.discardButton} onPress={navigateToApiaries}>
+        <TouchableOpacity style={styles.discardButton} onPress={() => props.onPress()}>
             <Text style={styles.btnText}>Back</Text>
         </TouchableOpacity>
         <Text style={styles.pageTitle}>To Do List</Text>
