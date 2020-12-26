@@ -21,7 +21,7 @@ const viewPadding = 10;
 var properties;
 
 
-export default class TodoList extends Component {
+export default class TodoData extends Component {
     //checkAndNavigate;
 
     constructor(props) {
@@ -30,8 +30,8 @@ export default class TodoList extends Component {
     }
 
     state = {
-        tasks: [],
-        text: "",
+        // tasks: [],
+        // text: "",
     };
 
     changeTextHandler = text => {
@@ -133,27 +133,10 @@ export default class TodoList extends Component {
             <View
                 style={[styles.container, { paddingBottom: this.state.viewMargin }]}
             >
-                <FlatList
-                    style={styles.list}
-                    data={this.state.tasks}
-                    renderItem={({ item, index }) => item.draw ? //null  // alert(JSON.stringify(item))
-                        (<View>
-                            <View style={styles.listItemCont}>
-                                <TouchableHighlight onPress={() => this.props.checkAndNavigate(index) /* alert(JSON.stringify(this.props))*/} style={styles.listItemCont}>
-                                    <View style={{ width: "90%" }}>
-                                        <Text style={styles.listItem}>
-                                            {item.text}
-                                        </Text>
-                                    </View>
-                                </TouchableHighlight>
-                                <Button title="X" style={styles.button} onPress={() => this.deleteTask(index)} />
-                            </View>
-                            <View style={styles.hr} />
-                        </View>)
-                        : null
-                    }
-                />
-                <TextInput
+                <Text>
+                    We are in index {this.props.index} deep info :O
+                </Text>
+                {/* <TextInput
                     style={styles.textInput}
                     onChangeText={this.changeTextHandler}
                     onSubmitEditing={this.addTask}
@@ -161,7 +144,7 @@ export default class TodoList extends Component {
                     placeholder="Add Tasks"
                     returnKeyType="done"
                     returnKeyLabel="done"
-                />
+                /> */}
             </View>
         );
     }
