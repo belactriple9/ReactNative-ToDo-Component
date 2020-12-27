@@ -17,23 +17,19 @@ const ToDoList = (props) => {
 
     const [index, setIndex] = useState(0);
     //set default to the toDoHome
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(2);
 
     const checkAndNavigate = (i) => {
-        //alert(i);
-        if (!(i === null)) {
-            //alert("nav1 " + index);
-            setPage(3); //navigate to the internal
-            setIndex(i);
-            alert(index)
-            setToDoList(toDoData);
+        alert(i);
+        setIndex(i);
+        setPage(3); //navigate to the internal
+        setToDoList(toDoData);
 
-        }
-        else {
-            //alert("nav2")
-            setPage(1);
-            setToDoList(toDoHome);
-        }
+
+    }
+    const checkAndNavigatev2 = () => {
+        setPage(1);
+        setToDoList(toDoHome);
     }
 
     let toDoHome = <ToDoHome
@@ -52,24 +48,20 @@ const ToDoList = (props) => {
 
 
     const toCompleted = () => {
-        if (page === 1) {
-            setPage(2)
-            setToDoList(toDoCompleted)
-        }
+        setPage(2)
+        setToDoList(toDoCompleted)
 
     }
     const toList = () => {
-        if (page === 2) {
-            setPage(1)
-            setToDoList(toDoHome)
-        }
+        setPage(1)
+        setToDoList(toDoHome)
     }
 
 
 
     return (
         <Background>
-            <ToDoHeadder onPress={checkAndNavigate} />
+            <ToDoHeadder onPress={checkAndNavigatev2} />
             <Container style={styles.pageContainer}>
                 {toDoList}
             </Container>

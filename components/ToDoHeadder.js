@@ -7,7 +7,7 @@ import Colors from "../constants/colors";
 const InspectionHeader = (props) => {
 
     return <View style={styles.pageHeader}>
-        <TouchableOpacity style={styles.discardButton} onPress={() => props.onPress()}>
+        <TouchableOpacity style={styles.discardButton} onPress={props.onPress}>
             <Text style={styles.btnText}>Back</Text>
         </TouchableOpacity>
         <Text style={styles.pageTitle}>To Do List</Text>

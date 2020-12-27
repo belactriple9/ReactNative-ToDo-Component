@@ -139,7 +139,7 @@ export default class TodoList extends Component {
                     renderItem={({ item, index }) => item.draw ? //null  // alert(JSON.stringify(item))
                         (<View>
                             <View style={styles.listItemCont}>
-                                <TouchableHighlight onPress={() => this.props.checkAndNavigate(index) /* alert(JSON.stringify(this.props))*/} style={styles.listItemCont}>
+                                <TouchableHighlight onPress={() => { this.props.checkAndNavigate(index) }} style={styles.listItemCont}>
                                     <View style={{ width: "90%" }}>
                                         <Text style={styles.listItem}>
                                             {item.text}
