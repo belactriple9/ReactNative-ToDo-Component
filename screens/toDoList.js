@@ -15,18 +15,14 @@ import Container from "../components/container";
  */
 const ToDoList = (props) => {
 
-    const [index, setIndex] = useState(0);
     //set default to the toDoHome
     const [page, setPage] = useState(2);
 
     const checkAndNavigate = (i) => {
-        alert(i);
-        setIndex(i);
         setPage(3); //navigate to the internal
-        setToDoList(toDoData);
-
-
+        setToDoList(toDoData(i));
     }
+
     const checkAndNavigatev2 = () => {
         setPage(1);
         setToDoList(toDoHome);
@@ -39,9 +35,11 @@ const ToDoList = (props) => {
     let toDoCompleted = <ToDoCompleted
     />
 
-    let toDoData = <ToDoData
-        {...{ index }}
-    />
+    let toDoData = (i) => {
+        return (<ToDoData
+            idx={i}
+        />)
+    }
 
     const [toDoList, setToDoList] = useState(toDoHome);
 

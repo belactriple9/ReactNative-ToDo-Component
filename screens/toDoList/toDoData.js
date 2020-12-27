@@ -18,15 +18,13 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
 
-var properties;
-
 
 export default class TodoData extends Component {
-    //checkAndNavigate;
+    idx;
 
     constructor(props) {
         super(props);
-        //alert(JSON.stringify(this))
+        alert(JSON.stringify(this.props.idx));
     }
 
     state = {
@@ -134,7 +132,7 @@ export default class TodoData extends Component {
                 style={[styles.container, { paddingBottom: this.state.viewMargin }]}
             >
                 <Text>
-                    We are in index {this.props.index} deep info :O
+                    We are in index {this.props.idx} deep info :O
                 </Text>
                 {/* <TextInput
                     style={styles.textInput}
