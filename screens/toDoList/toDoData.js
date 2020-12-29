@@ -24,7 +24,7 @@ export default class TodoData extends Component {
 
     constructor(props) {
         super(props);
-        alert(JSON.stringify(this.props.idx));
+        //alert(JSON.stringify(this.props.idx));
     }
 
     state = {
