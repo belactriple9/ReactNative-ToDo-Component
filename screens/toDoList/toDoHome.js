@@ -13,7 +13,8 @@ import {
     Platform,
     Alert
 } from "react-native";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
+import Colors from "../../constants/colors";
 
 const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
@@ -29,26 +30,50 @@ export default class TodoList extends Component {
         //alert(JSON.stringify(this))
     }
 
+
+
     state = {
         tasks: [],
         text: "",
+        searchText: "",
     };
+
+    searchHandler = text => {
+        this.setState({ searchText: text })
+        // alert(this.state.searchText.toString());
+        for (var i = 0; i < this.state.tasks.length; i++) {
+            if (!(this.state.tasks[i].text.includes(this.state.searchText)) && !(this.state.searchText.toString() === "")) {
+                this.state.tasks[i].searchDisplay = false;
+            } else {
+                this.state.tasks[i].searchDisplay = true;
+            }
+        }
+    };
+
+    reloadSearch = () => {
+        this.setState({ searchText: "" })
+        for (var i = 0; i < this.state.tasks.length; i++) {
+            this.state.tasks[i].searchDisplay = true;
+        }
+    }
 
     changeTextHandler = text => {
         this.setState({ text: text });
     };
 
     addTask = () => {
+        this.reloadSearch();
         let notEmpty = this.state.text.trim().length > 0;
 
         if (notEmpty) {
             this.setState(
                 prevState => {
-                    let { tasks, text, draw } = prevState;
+                    let { tasks, text, searchText } = prevState;
 
                     return {
-                        tasks: tasks.concat({ key: tasks.length + "", text: text, draw: true }),
+                        tasks: tasks.concat({ key: tasks.length + "", text: text, draw: true, searchDisplay: true }), //always on a new add, make sure it draws
                         text: "",
+                        searchText: searchText,
                     };
                 },
 
@@ -105,7 +130,7 @@ export default class TodoList extends Component {
             this.setState(
                 prevState => {
                     //let tasks = prevState.tasks.slice();
-                    let { tasks, text, draw } = prevState;
+                    let { tasks } = prevState;
                     tasks[i].draw = false
                     return { tasks: tasks };
                 },
@@ -116,7 +141,7 @@ export default class TodoList extends Component {
     componentDidMount() {
 
         Keyboard.addListener(
-            isAndroid ? "   boardDidShow" : "keyboardWillShow",
+            isAndroid ? "   boardDidShow" : "keyboardWillShow", //literally the spaces before boardDidShow is 100% required
             e => this.setState({ viewMargin: e.endCoordinates.height + viewPadding })
         );
 
@@ -133,10 +158,30 @@ export default class TodoList extends Component {
             <View
                 style={[styles.container, { paddingBottom: this.state.viewMargin }]}
             >
+                <View style={{ flexDirection: "row", }}>
+                    <TextInput
+                        style={styles.searchInput}
+                        onChangeText={this.searchHandler}
+                        onSubmitEditing={this.searchHandler}
+                        value={this.state.searchText}
+                        placeholder="Search Tasks"
+                        returnKeyType="done"
+                        returnKeyLabel="done"
+                    >
+                    </TextInput>
+
+                    <TouchableOpacity style={styles.buttonReload} text="Reload" onPress={this.reloadSearch}>
+                        <View style={{ backgroundColor: Colors.darkBlue }}>
+                            <Text style={{ color: Colors.iOSWhite, justifyContent: "center", padding: "3%" }}>
+                                Reload
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
                 <FlatList
                     style={styles.list}
                     data={this.state.tasks}
-                    renderItem={({ item, index }) => item.draw ? //null  // alert(JSON.stringify(item))
+                    renderItem={({ item, index }) => item.draw && item.searchDisplay ? //null  // alert(JSON.stringify(item))
                         (<View>
                             <View style={styles.listItemCont}>
                                 <TouchableHighlight onPress={() => { this.props.checkAndNavigate(index) }} style={styles.listItemCont}>
@@ -175,7 +220,7 @@ let Tasks = {
         tasks = JSON.parse(tasks);
 
         return callback(
-            tasks ? tasks.map((task, i) => ({ key: i + "", text: task.text, draw: task.draw })) : []
+            tasks ? tasks.map((task, i) => ({ key: i + "", text: task.text, draw: task.draw, searchDisplay: true })) : []
         );
     },
     convertToStringWithSeparators(tasks) {
@@ -228,7 +273,24 @@ const styles = StyleSheet.create({
         borderWidth: isAndroid ? 0 : 1,
         width: "100%"
     },
+    searchInput: {
+        marginRight: "auto",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        height: 40,
+        paddingRight: 10,
+        paddingLeft: 10,
+        borderColor: "gray",
+        borderWidth: isAndroid ? 0 : 1,
+        width: "80%"
+    },
     button: {
         flex: 1,
+    },
+    buttonReload: {
+        flex: 1,
+        flexDirection: "row",
+        //backgroundColor: Colors.iOSWhite,
+
     }
 });
