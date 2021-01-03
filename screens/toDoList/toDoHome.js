@@ -14,23 +14,20 @@ import {
     Alert
 } from "react-native";
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
-import Colors from "../../constants/colors";
+import ColorsConst from '../../constants/colors'
+var Colors = ColorsConst;
+
 
 const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
 
-var properties;
-
 
 export default class TodoList extends Component {
-    //checkAndNavigate;
 
     constructor(props) {
         super(props);
         //alert(JSON.stringify(this))
     }
-
-
 
     state = {
         tasks: [],
@@ -139,6 +136,8 @@ export default class TodoList extends Component {
     };
 
     componentDidMount() {
+        setStyles()
+
 
         Keyboard.addListener(
             isAndroid ? "   boardDidShow" : "keyboardWillShow", //literally the spaces before boardDidShow is 100% required
@@ -171,8 +170,8 @@ export default class TodoList extends Component {
                     </TextInput>
 
                     <TouchableOpacity style={styles.buttonReload} text="Reload" onPress={this.reloadSearch}>
-                        <View style={{ backgroundColor: Colors.darkBlue }}>
-                            <Text style={{ color: Colors.iOSWhite, justifyContent: "center", padding: "3%" }}>
+                        <View style={styles.reloadButton}>
+                            <Text style={styles.ItemTextStyle}>
                                 Reload
                             </Text>
                         </View>
@@ -238,12 +237,79 @@ let Tasks = {
 
 };
 
-const styles = StyleSheet.create({
+function setStyles() {
+    Colors = global.colors;
+    styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: Colors.iOSWhite,
+            padding: viewPadding,
+            paddingTop: 20
+        },
+        list: {
+            width: "100%"
+        },
+        listItem: {
+            paddingTop: 2,
+            paddingBottom: 2,
+            width: '90%',
+            fontSize: 18,
+            color: Colors.black,
+        },
+        hr: {
+            height: 1,
+            backgroundColor: Colors.lightBlack
+        },
+        listItemCont: {
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between"
+        },
+        textInput: {
+            height: 40,
+            paddingRight: 10,
+            paddingLeft: 10,
+            borderColor: Colors.lightBlack,
+            borderWidth: isAndroid ? 0 : 1,
+            width: "100%",
+            color: Colors.black,
+        },
+        searchInput: {
+            marginRight: "auto",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            height: 40,
+            paddingRight: 10,
+            paddingLeft: 10,
+            borderColor: Colors.lightBlack,
+            borderWidth: isAndroid ? 0 : 1,
+            width: "80%",
+            color: Colors.black
+        },
+        button: {
+            flex: 1,
+        },
+        buttonReload: {
+            flex: 1,
+            flexDirection: "row",
+
+        },
+        ItemTextStyle: {
+            color: Colors.iOSWhite, justifyContent: "center", padding: "3%", textShadowColor: global.darkMode ? Colors.black : Colors.iOSWhite,
+            textShadowRadius: 10,
+        },
+        reloadButton: { backgroundColor: Colors.red },
+    });
+}
+
+var styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#F5FCFF",
+        backgroundColor: Colors.iOSWhite,
         padding: viewPadding,
         paddingTop: 20
     },
@@ -258,12 +324,13 @@ const styles = StyleSheet.create({
     },
     hr: {
         height: 1,
-        backgroundColor: "gray"
+        backgroundColor: Colors.lightBlack
     },
     listItemCont: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
+
     },
     textInput: {
         height: 40,
@@ -290,7 +357,7 @@ const styles = StyleSheet.create({
     buttonReload: {
         flex: 1,
         flexDirection: "row",
-        //backgroundColor: Colors.iOSWhite,
-
-    }
+    },
+    ItemTextStyle: { color: Colors.iOSWhite, justifyContent: "center", padding: "3%" },
+    reloadButton: { backgroundColor: Colors.darkBlue },
 });

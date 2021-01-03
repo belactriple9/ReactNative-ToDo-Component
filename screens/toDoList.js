@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, Component, window } from 'react';
 import { StyleSheet } from "react-native";
+
 
 import ToDoData from './toDoList/toDoData.js';
 import ToDoHome from './toDoList/toDoHome.js';
@@ -8,12 +9,16 @@ import ToDoFooter from "../components/ToDoFooter";
 import ToDoHeadder from "../components/ToDoHeadder";
 import Background from "../components/background";
 import Container from "../components/container";
+// import Colors from "../constants/colors";
+var Colors = global.colors;
 
 /**
  * A wrappper for the functionality of the todo-list
  * @param {Properties passed to ToDoList} props 
  */
+
 const ToDoList = (props) => {
+    Colors = global.colors;
 
     //set default to the toDoHome
     const [page, setPage] = useState(2);
@@ -55,18 +60,53 @@ const ToDoList = (props) => {
         setToDoList(toDoHome)
     }
 
+    const [uniqueValue, setUniqueValue] = useState(0);
+
+    const toggleDarkMode = () => {
+        //make dark mode or light mode happen
+        global.darkMode ?
+            global.darkMode = false /*do thing*/ :
+            global.darkMode = true; //swap back to light mode
+
+        if (global.darkMode) {
+            global.colors = { //this is dark mode
+                darkYellow: "#ffffff",
+                black: "#66dbf6",
+                gold: "#808080",
+                lightBlack: "#ffffff",
+                Yellow: "#ffffff",
+                red: "#3a3637",
+                lightBlue: "#ffffff",
+                darkBlue: "#00008b",
+                iOSWhite: "#111111",
+            }
+        } else
+            global.colors = { //this is light mode
+                darkYellow: "#f3c622",
+                black: "#23212c",
+                gold: "#fcb438",
+                lightBlack: "#3a3637",
+                Yellow: "#fcd615",
+                red: "#992409",
+                lightBlue: "#66dbf6",
+                darkBlue: "#0000FF",
+                iOSWhite: "#efece3",
+            }
+
+        uniqueValue === 0 ? setUniqueValue(1) : setUniqueValue(0);
+
+    };
 
 
     return (
-        <Background>
-            <ToDoHeadder onPress={checkAndNavigatev2} />
+        <Background key={uniqueValue} >
+            <ToDoHeadder toggleDarkMode={toggleDarkMode} onPress={checkAndNavigatev2} />
             <Container style={styles.pageContainer}>
                 {toDoList}
             </Container>
             <ToDoFooter onPressNext={toCompleted} onPressBack={toList} style={styles.footerContainer} />
         </Background>
     );
-
 }
 
 const styles = StyleSheet.create({
@@ -85,6 +125,7 @@ const styles = StyleSheet.create({
         flex: 1,
     }
 });
+
 
 
 

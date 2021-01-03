@@ -15,6 +15,8 @@ import {
 const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
 
+import ColorsConst from '../../constants/colors';
+var Colors = ColorsConst;
 
 
 export default class TodoList extends Component {
@@ -45,7 +47,7 @@ export default class TodoList extends Component {
     };
 
     componentDidMount() {
-
+        setStyles()
         Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
     }
 
@@ -99,12 +101,48 @@ let Tasks = {
 
 };
 
-const styles = StyleSheet.create({
+function setStyles() {
+    Colors = global.colors;
+    styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: Colors.iOSWhite,
+            padding: viewPadding,
+            paddingTop: 20
+        },
+        list: {
+            width: "100%"
+        },
+        listItem: {
+            paddingTop: 2,
+            paddingBottom: 2,
+            width: '90%',
+            fontSize: 18,
+            color: Colors.black,
+        },
+        hr: {
+            height: 1,
+            backgroundColor: Colors.lightBlack
+        },
+        listItemCont: {
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between"
+        },
+        button: {
+            flex: 1,
+        }
+    });
+}
+
+var styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#F5FCFF",
+        backgroundColor: Colors.iOSWhite,
         padding: viewPadding,
         paddingTop: 20
     },

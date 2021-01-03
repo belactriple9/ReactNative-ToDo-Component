@@ -1,4 +1,5 @@
-export default {
+global.colors = { //this is light mode
+
     darkYellow: "#f3c622",
     black: "#23212c",
     gold: "#fcb438",
@@ -9,3 +10,5 @@ export default {
     darkBlue: "#0000FF",
     iOSWhite: "#efece3",
 }
+
+export default global.colors;
