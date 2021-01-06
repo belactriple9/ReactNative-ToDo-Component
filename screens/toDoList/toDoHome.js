@@ -68,7 +68,9 @@ export default class TodoList extends Component {
                     let { tasks, text, searchText } = prevState;
 
                     return {
-                        tasks: tasks.concat({ key: tasks.length + "", text: text, draw: true, searchDisplay: true }), //always on a new add, make sure it draws
+                        tasks: tasks.concat({
+                            key: tasks.length + "", text: text, draw: true, searchDisplay: true, description: "",
+                        }), //always on a new add, make sure it draws 
                         text: "",
                         searchText: searchText,
                     };
@@ -217,9 +219,9 @@ export default class TodoList extends Component {
 let Tasks = {
     convertToArrayOfObject(tasks, callback) {
         tasks = JSON.parse(tasks);
-
+        //console.log(JSON.stringify(tasks));
         return callback(
-            tasks ? tasks.map((task, i) => ({ key: i + "", text: task.text, draw: task.draw, searchDisplay: true })) : []
+            tasks ? tasks.map((task, i) => ({ key: i + "", text: task.text, draw: task.draw, searchDisplay: true, description: task.description })) : []
         );
     },
     convertToStringWithSeparators(tasks) {
@@ -274,7 +276,7 @@ function setStyles() {
             borderColor: Colors.lightBlack,
             borderWidth: isAndroid ? 0 : 1,
             width: "100%",
-            color: Colors.black,
+            color: Colors.blackForText,
         },
         searchInput: {
             marginRight: "auto",
@@ -286,7 +288,7 @@ function setStyles() {
             borderColor: Colors.lightBlack,
             borderWidth: isAndroid ? 0 : 1,
             width: "80%",
-            color: Colors.black
+            color: Colors.blackForText
         },
         button: {
             flex: 1,
@@ -297,7 +299,7 @@ function setStyles() {
 
         },
         ItemTextStyle: {
-            color: Colors.iOSWhite, justifyContent: "center", padding: "3%", textShadowColor: global.darkMode ? Colors.black : Colors.iOSWhite,
+            color: Colors.whiteForText, justifyContent: "center", padding: "3%", textShadowColor: global.darkMode ? Colors.black : Colors.iOSWhite,
             textShadowRadius: 10,
         },
         reloadButton: { backgroundColor: Colors.red },
@@ -358,6 +360,6 @@ var styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
     },
-    ItemTextStyle: { color: Colors.iOSWhite, justifyContent: "center", padding: "3%" },
+    ItemTextStyle: { color: Colors.whiteForText, justifyContent: "center", padding: "3%" },
     reloadButton: { backgroundColor: Colors.darkBlue },
 });

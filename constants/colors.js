@@ -9,6 +9,7 @@ global.colors = { //this is light mode
     lightBlue: "#66dbf6",
     darkBlue: "#0000FF",
     iOSWhite: "#efece3",
+    whiteForText: "#efece3"
 }
 
 export default global.colors;

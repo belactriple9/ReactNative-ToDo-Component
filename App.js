@@ -19,6 +19,7 @@ export default function App() {
     lightBlue: "#66dbf6",
     darkBlue: "#0000FF",
     iOSWhite: "#efece3",
+    whiteForText: "#efece3"
   }
 
   return (

@@ -20,8 +20,7 @@ const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
 
 
-export default class TodoData extends Component {
-    idx;
+export default class TodoList extends Component {
 
     constructor(props) {
         super(props);
@@ -29,39 +28,20 @@ export default class TodoData extends Component {
     }
 
     state = {
-        // tasks: [],
-        // text: "",
+        tasks: [],
+        text: "",
+        searchText: "",
     };
 
     changeTextHandler = text => {
         this.setState({ text: text });
     };
 
-    addTask = () => {
-        let notEmpty = this.state.text.trim().length > 0;
-
-        if (notEmpty) {
-            this.setState(
-                prevState => {
-                    let { tasks, text, draw } = prevState;
-
-                    return {
-                        tasks: tasks.concat({ key: tasks.length + "", text: text, draw: true }),
-                        text: "",
-                    };
-                },
-
-                () => {
-                    Tasks.save(this.state.tasks)
-                }
-            );
-        }
-    };
 
     getTask = i => {
 
-        var temp = this.state.tasks.slice();
-        return temp[i];
+        //console.log(this.state.tasks.slice()[i]);
+        //return temp[i];
     }
 
     deleteTask = async (i) => {
@@ -126,6 +106,12 @@ export default class TodoData extends Component {
         );
 
         Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
+
+    }
+
+    changeObjectText = () => {
+        this.state.tasks[this.props.idx].text = this.state.text
+        Tasks.save(this.state.tasks);
     }
 
     render() {
@@ -133,18 +119,20 @@ export default class TodoData extends Component {
             <View
                 style={[styles.container, { paddingBottom: this.state.viewMargin }]}
             >
-                <Text>
-                    We are in index {this.props.idx} deep info :O
+                <View style={{ height: "90%" }}>
+                    <Text>
+                        We are in index {this.props.idx} deep info :O
                 </Text>
-                {/* <TextInput
+                </View>
+                <TextInput
                     style={styles.textInput}
                     onChangeText={this.changeTextHandler}
-                    onSubmitEditing={this.addTask}
-                    value={this.state.text}
-                    placeholder="Add Tasks"
+                    onSubmitEditing={this.changeObjectText}//(text) => this.state.tasks[this.props.idx].text = text}
+                    //value={this.state.text}
+                    placeholder="Change Task Title"
                     returnKeyType="done"
                     returnKeyLabel="done"
-                /> */}
+                />
             </View>
         );
     }
@@ -156,9 +144,8 @@ export default class TodoData extends Component {
 let Tasks = {
     convertToArrayOfObject(tasks, callback) {
         tasks = JSON.parse(tasks);
-
         return callback(
-            tasks ? tasks.map((task, i) => ({ key: i + "", text: task.text, draw: task.draw })) : []
+            tasks ? tasks.map((task, i) => ({ key: i + "", text: task.text, draw: task.draw, searchDisplay: true, description: task.description })) : []
         );
     },
     convertToStringWithSeparators(tasks) {

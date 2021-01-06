@@ -79,6 +79,7 @@ const ToDoList = (props) => {
                 lightBlue: "#ffffff",
                 darkBlue: "#00008b",
                 iOSWhite: "#111111",
+                whiteForText: "#efece3"
             }
         } else
             global.colors = { //this is light mode
@@ -91,6 +92,7 @@ const ToDoList = (props) => {
                 lightBlue: "#66dbf6",
                 darkBlue: "#0000FF",
                 iOSWhite: "#efece3",
+                whiteForText: "#efece3"
             }
 
         uniqueValue === 0 ? setUniqueValue(1) : setUniqueValue(0);

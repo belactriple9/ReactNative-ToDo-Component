@@ -59,10 +59,10 @@ function setStyles() {
             shadowRadius: 6,
             shadowOpacity: 0.26,
             elevation: 8,
-            color: Colors.iOSWhite,
+            color: Colors.whiteForText,
         },
         btnText: {
-            color: Colors.iOSWhite,
+            color: Colors.whiteForText,
             fontWeight: 'bold',
             fontSize: 20,
             textShadowColor: global.darkMode ? Colors.black : Colors.iOSWhite,
@@ -119,10 +119,10 @@ var styles = StyleSheet.create({
         shadowRadius: 6,
         shadowOpacity: 0.26,
         elevation: 8,
-        color: Colors.iOSWhite,
+        color: Colors.whiteForText,
     },
     btnText: {
-        color: Colors.iOSWhite,
+        color: Colors.whiteForText,
         fontWeight: 'bold',
         fontSize: 20,
         textShadowColor: "black",
@@ -142,7 +142,7 @@ var styles = StyleSheet.create({
         shadowRadius: 6,
         shadowOpacity: 0.26,
         elevation: 8,
-        color: Colors.iOSWhite,
+        color: Colors.whiteForText,
     }
 });
 

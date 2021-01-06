@@ -5,6 +5,7 @@ import ColorsConst from '../constants/colors';
 var Colors = ColorsConst;
 
 
+
 const InspectionFooter = (props) => {
     Colors = global.colors;
     setStyles()
@@ -41,7 +42,7 @@ function setStyles() {
             bottom: "0.5%",
         },
         text: {
-            color: Colors.iOSWhite,
+            color: Colors.whiteForText,
             fontSize: 22,
             fontWeight: "bold",
             alignSelf: "center",
@@ -77,7 +78,7 @@ var styles = StyleSheet.create({
         bottom: "0.5%",
     },
     text: {
-        color: Colors.iOSWhite,
+        color: Colors.whiteForText,
         fontSize: 22,
         fontWeight: "bold",
         alignSelf: "center",
